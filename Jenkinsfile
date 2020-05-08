@@ -4,22 +4,31 @@ pipeline {
     stages {
         stage('Git-Checkout') {
             steps {
-                echo 'Checking out from Git Repo'
+                echo 'Test Git Repo with jenkins '
             }
         }
         stage('Build') {
             steps {
                 echo 'Build the checked-out project!'
+                sh "bash Build.sh"
             }
         }
         stage('Unit-Test') {
             steps {
                 echo 'Running JUnit Tests'
+                sh "bash Unit.sh"
             }
         }
         stage('Quality-Gate') {
             steps {
                 echo 'Verifying Quality Gate'
+                sh "bash Quality.sh"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying to Stage Environment for more tests'
+                sh "bash Deploy.sh"
             }
         }
     }
